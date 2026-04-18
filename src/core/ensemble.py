@@ -1,8 +1,8 @@
 import torch
 import os
 import json
-from models import get_model
-from checkpoint_compat import load_checkpoint_strict
+from .models import get_model
+from .checkpoint_compat import load_checkpoint_strict
 
 # Local configuration
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

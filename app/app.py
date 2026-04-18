@@ -7,9 +7,9 @@ from PIL import Image
 from torchvision import transforms
 
 # Architectural Logic Imports
-from config import BASE_DIR
-from ensemble import load_models, ensemble_predict
-from gradcam_utils import generate_gradcam
+from src.core.config import PROJECT_ROOT
+from src.core.ensemble import ensemble_predict
+from src.core.gradcam_utils import generate_gradcam
 
 # --- Hardware Allocation ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -22,7 +22,7 @@ st.markdown(
 )
 
 # --- Load Dataset Topology ---
-MAP_PATH = "class_mapping.json"
+MAP_PATH = os.path.join(PROJECT_ROOT, "class_mapping.json")
 if os.path.exists(MAP_PATH):
     with open(MAP_PATH) as f:
         idx_to_label = json.load(f)
@@ -37,29 +37,29 @@ def load_all_models():
     """Consolidated model loading for all architectural nodes."""
     models_dict = {}
     idx_map = {}
-    map_path = os.path.join(BASE_DIR, "class_mapping.json")
+    map_path = os.path.join(PROJECT_ROOT, "class_mapping.json")
 
     for name in ["resnet50", "efficientnet", "mobilenet", "vgg16", "ann", "custom_cnn", "keras_cnn"]:
         # Standardize search across multiple local node structures
         potential_paths = [
-            os.path.join(BASE_DIR, f"best_{name}.pth"),
-            os.path.join(BASE_DIR, "weights", f"{name}.pth"),
-            os.path.join(BASE_DIR, f"best_{name}.h5"),   # Added for Keras
+            os.path.join(PROJECT_ROOT, f"best_{name}.pth"),
+            os.path.join(PROJECT_ROOT, "weights", f"{name}.pth"),
+            os.path.join(PROJECT_ROOT, f"best_{name}.h5"),   # Added for Keras
         ]
         
         # Additional heuristics for Keras CNN if specifically named in train_keras.py
         if name == "keras_cnn":
-            potential_paths.append(os.path.join(BASE_DIR, "best_keras_model.h5"))
+            potential_paths.append(os.path.join(PROJECT_ROOT, "best_keras_model.h5"))
 
         loaded = False
         for model_path in potential_paths:
             if os.path.exists(model_path) and os.path.exists(map_path):
                 try:
                     if model_path.endswith(".h5"):
-                        from inference import load_keras_model
+                        from src.core.inference import load_keras_model
                         m, idx_map = load_keras_model(model_path, map_path)
                     else:
-                        from inference import load_model
+                        from src.core.inference import load_model
                         m, idx_map = load_model(model_path, map_path, internal_name=name)
                     
                     models_dict[name] = m
@@ -136,7 +136,7 @@ if uploaded_file:
                     st.warning("Ensemble Matrix Failed: All candidate architecture block states are uninitialized. Await `train.py` convergence.")
                 else:
                     try:
-                        from inference import ensemble_predict
+                        from src.core.inference import ensemble_predict
                         results = ensemble_predict(image, ensemble_targets, idx_to_label)
                         st.success("Synchronized Ensemble Sequence Completed Successfully!")
                         st.metric(label="Consensus Predicted Output Target:", value=str(results["class"]).upper())
@@ -151,10 +151,10 @@ if uploaded_file:
                     try:
                         model_to_use = models_dict[target_key]
                         if target_key == "keras_cnn":
-                            from inference import keras_predict
+                            from src.core.inference import keras_predict
                             results = keras_predict(image, model_to_use, idx_to_label)
                         else:
-                            from inference import predict
+                            from src.core.inference import predict
                             results = predict(image, model_to_use, idx_to_label, generate_cam=True)
                         
                         st.success(f"Inference resolved cleanly over `{model_choice}`.")

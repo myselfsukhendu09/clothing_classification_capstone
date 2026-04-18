@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 import torch
-from model import get_model
+from src.core.model import get_model
 import json
 
 print("Starting dummy weight generation for capstone dashboard activation...")
@@ -19,9 +19,10 @@ except Exception:
 
 # 1. Generate MobileNetV3 Weights
 print(f"Generating MobileNet-V3 weights for {num_classes} classes...")
-model = get_model("mobilenet_v3", num_classes)
-torch.save(model.state_dict(), "best_mobilenet_v3.pth")
-print("Saved best_mobilenet_v3.pth")
+from src.core.models import get_model
+model = get_model("mobilenet", num_classes)
+torch.save(model.state_dict(), "weights/best_mobilenet_v3.pth")
+print("Saved weights/best_mobilenet_v3.pth")
 
 # 2. Generate Keras CNN Weights
 try:
@@ -43,8 +44,8 @@ try:
         Dense(num_classes, activation='softmax')
     ])
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    model.save("best_keras_model.h5")
-    print("Saved best_keras_model.h5")
+    model.save("weights/best_keras_model.h5")
+    print("Saved weights/best_keras_model.h5")
 except ImportError:
     print("Error: TensorFlow not found correctly in environment. Skipping Keras weights.")
 except Exception as e:

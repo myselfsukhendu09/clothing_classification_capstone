@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clothing-classification-capstone"
+version = "1.0.0"
+authors = [
+  { name="Sukhendu Biswas", email="myselfsukhendu.09@gmail.com" },
+]
+description = "A production-grade deep learning pipeline for automated apparel categorization"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "pandas",
+    "numpy",
+    "tqdm",
+    "scikit-learn",
+    "Pillow",
+    "matplotlib",
+    "seaborn",
+    "streamlit",
+    "fastapi",
+    "uvicorn",
+    "python-multipart",
+    "grad-cam",
+    "opencv-python-headless",
+    "tensorboard",
+    "keras",
+    "tensorflow",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/myselfsukhendu09/clothing_classification_capstone"
+"Bug Tracker" = "https://github.com/myselfsukhendu09/clothing_classification_capstone/issues"
+
+[tool.setuptools]
+packages = ["src", "src.core", "scripts", "app"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []

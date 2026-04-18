@@ -6,8 +6,8 @@ import pandas as pd
 import torch
 from sklearn.metrics import classification_report, confusion_matrix
 
-from checkpoint_compat import load_checkpoint_strict
-from config import (
+from src.core.checkpoint_compat import load_checkpoint_strict
+from src.core.config import (
     BATCH_SIZE,
     CLASS_MAPPING_FILE,
     CSV_FILE,
@@ -17,9 +17,9 @@ from config import (
     REPORTS_DIR,
     SEED,
 )
-from dataset import get_dataloaders
-from model import get_model
-from utils import ensure_dir, set_seed
+from src.core.dataset import get_dataloaders
+from src.core.model import get_model
+from src.core.utils import ensure_dir, set_seed
 
 
 def evaluate(model_path: str, reports_dir: str) -> int:

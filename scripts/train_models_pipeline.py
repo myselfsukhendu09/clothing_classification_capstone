@@ -11,9 +11,9 @@ import torch.optim as optim
 from tqdm import tqdm
 
 # External local imports
-from config import *
-from dataset import get_dataloaders
-from models_collection import CustomCNN, SimpleANN, get_resnet50
+from src.core.config import *
+from src.core.dataset import get_dataloaders
+from src.core.models_collection import CustomCNN, SimpleANN, get_resnet50
 
 # Senior CV Engineer Note: Efficiently assigning GPU hardware if CUDA is enabled implicitly
 # PyTorch automatically assigns ops to CUDA without breaking the CPU pipeline seamlessly.
@@ -87,7 +87,7 @@ def train_pytorch_model(model_name, model, train_loader, val_loader, num_epochs=
             # Note: We safely checkpoint the weights to disk avoiding data serialization faults
             torch.save(
                 model.state_dict(),
-                os.path.join(BASE_DIR, f"best_{model_name.lower()}.pth"),
+                os.path.join(PROJECT_ROOT, f"best_{model_name.lower()}.pth"),
             )
 
     return final_train_acc, best_val_acc
@@ -153,14 +153,14 @@ def plot_metrics(metrics_dict):
 
     # Save to rigid artifact natively seamlessly
     plt.tight_layout()
-    chart_path = os.path.join(BASE_DIR, "model_comparison_chart.png")
+    chart_path = os.path.join(PROJECT_ROOT, "model_comparison_chart.png")
     plt.savefig(chart_path, dpi=300)
     print(
         f"\n[Artifact Output] Bar chart reliably populated and saved at: {chart_path}"
     )
 
     # Save the exact metrics structure
-    df_metrics.to_csv(os.path.join(BASE_DIR, "detailed_metrics.csv"), index=False)
+    df_metrics.to_csv(os.path.join(PROJECT_ROOT, "detailed_metrics.csv"), index=False)
 
 
 def run_project_pipeline(demo_mode, ann_epochs, cnn_epochs, resnet_epochs):

@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-BASE_DIR = os.getcwd()
-CSV_PATH = os.path.join(BASE_DIR, "detailed_metrics.csv")
+PROJECT_ROOT = os.getcwd()
+CSV_PATH = os.path.join(PROJECT_ROOT, "detailed_metrics.csv")
 
 
 def update_chart():
@@ -87,7 +87,7 @@ def update_chart():
     plt.legend(bbox_to_anchor=(1.05, 1), loc="upper left", borderaxespad=0.0)
     plt.tight_layout()
 
-    chart_path = os.path.join(BASE_DIR, "model_comparison_chart.png")
+    chart_path = os.path.join(PROJECT_ROOT, "model_comparison_chart.png")
     plt.savefig(chart_path, dpi=300)
     print(f"Comparison chart updated at: {chart_path}")
 

@@ -10,9 +10,9 @@ from torch.utils.data import DataLoader, Subset
 from torchvision import transforms
 from tqdm import tqdm
 
-from config import *
-from dataset import ClothingDataset
-from models_collection import CustomCNN
+from src.core.config import *
+from src.core.dataset import ClothingDataset
+from src.core.models_collection import CustomCNN
 
 # ==============================================================================
 # K-Fold Stratified Cross-Validation

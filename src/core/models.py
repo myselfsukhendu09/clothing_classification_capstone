@@ -30,11 +30,11 @@ def get_model(name, num_classes):
         model.classifier[3] = nn.Linear(in_features, num_classes)
 
     elif name == "ann":
-        from models_collection import SimpleANN
+        from .models_collection import SimpleANN
         model = SimpleANN(num_classes)
         
     elif name == "custom_cnn":
-        from models_collection import CustomCNN
+        from .models_collection import CustomCNN
         model = CustomCNN(num_classes)
 
     elif name == "vgg16":

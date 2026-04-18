@@ -1,8 +1,8 @@
 import torch
 import os
 import tqdm
-from models import get_model
-from utils import get_data_loaders
+from src.core.models import get_model
+from src.core.utils import get_data_loaders
 
 # Set GPU compute if available
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

@@ -5,8 +5,8 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
-from checkpoint_compat import load_checkpoint_strict
-from models import get_model
+from .checkpoint_compat import load_checkpoint_strict
+from .models import get_model
 
 try:
     from pytorch_grad_cam import GradCAM

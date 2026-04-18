@@ -15,10 +15,10 @@ import argparse
 # ======================== 
 # CONFIGURATION
 # ========================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 CSV_FILE = os.path.join(DATA_DIR, "images.csv")
-CLASS_MAPPING_FILE = os.path.join(BASE_DIR, "class_mapping.json")
+CLASS_MAPPING_FILE = os.path.join(PROJECT_ROOT, "class_mapping.json")
 
 IMAGE_SIZE = (224, 224)
 BATCH_SIZE = 32
@@ -121,7 +121,7 @@ def train_keras(images_dir):
     )
 
     # Save the model
-    save_path = os.path.join(BASE_DIR, "best_keras_model.h5")
+    save_path = os.path.join(PROJECT_ROOT, "best_keras_model.h5")
     model.save(save_path)
     print(f"\nModel saved successfully to: {save_path}")
 

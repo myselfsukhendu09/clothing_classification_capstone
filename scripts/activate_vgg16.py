@@ -5,8 +5,7 @@ import os
 import json
 
 # Setup
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MAP_PATH = os.path.join(BASE_DIR, "class_mapping.json")
+from src.core.config import PROJECT_ROOT, CLASS_MAPPING_FILE as MAP_PATH
 
 def activate_vgg_node():
     # Load class mapping
@@ -29,7 +28,7 @@ def activate_vgg_node():
     )
 
     # Save to weights directory
-    target_path = os.path.join(BASE_DIR, "weights", "vgg16.pth")
+    target_path = os.path.join(PROJECT_ROOT, "weights", "vgg16.pth")
     os.makedirs(os.path.dirname(target_path), exist_ok=True)
     
     # Save formatted state dict

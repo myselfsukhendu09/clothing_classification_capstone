@@ -6,9 +6,9 @@ import torch
 from PIL import Image
 from torchvision import transforms
 
-from checkpoint_compat import load_checkpoint_strict
-from config import CLASS_MAPPING_FILE, IMAGE_SIZE, MODEL_SAVE_PATH
-from model import get_model
+from src.core.checkpoint_compat import load_checkpoint_strict
+from src.core.config import CLASS_MAPPING_FILE, IMAGE_SIZE, MODEL_SAVE_PATH
+from src.core.model import get_model
 
 
 def predict(image_path):
