@@ -1,0 +1,44 @@
+```mermaid
+mindmap
+  root((Clothing Classification Capstone))
+    Data
+      Download Dataset
+      Validate Structure (class subfolders)
+      Parse images.csv
+      Train / Val Split (stratified)
+      Strong Augmentation Pipeline
+      DataLoader Optimizations
+        pin_memory
+        persistent_workers
+        prefetch_factor
+    Models
+      EfficientNet-B0 (Primary)
+      ResNet50 (Ensemble)
+      MobileNetV3 (Ensemble)
+      Custom CNN (Baseline)
+      Head
+        Dropout Regularization
+        Linear -> Num Classes
+    Training
+      Repeats
+        Multi-run (10x) for robustness
+      Optimizer
+        AdamW
+      Scheduler
+        CosineAnnealing
+      Mixed Precision
+      Gradient Accumulation
+      Checkpointing
+        Save best per-run (runs/)
+      Logging
+        Per-epoch CSV
+        Aggregate summary
+    Evaluation
+      Ensemble Averaging
+      Grad-CAM Explainability
+      Confusion Matrix & Per-class Metrics
+    Deployment
+      TorchScript export
+      FastAPI endpoint
+      Streamlit demo
+```
