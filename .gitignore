@@ -11,16 +11,7 @@ __pycache__/
 # Ruff cache
 .ruff_cache/
 
-# Model weights (too large for GitHub)
-*.pth
-*.pt
-*.h5
-*.hdf5
-*.onnx
-*.pkl
-weights/
-
-# Dataset images (too large for GitHub)
+# Dataset images (6.4GB - too large for GitHub, use download script)
 data/
 
 # IDE
